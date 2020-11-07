@@ -7,42 +7,25 @@
 //ввода на возможные математические действия
 
 function SuperMath() {
-  this.check = function check() {
+  this.check = function check(obj) {
     var result = confirm("Do math action?");
     console.log(result);
-
     if (result === true) {
-      alert(doMath());
+      alert(p.doMath(obj));
     } else {
-      obj.input();
-      obj.check();
+      p.input(obj);
     }
   };
 }
 
-var obj = new SuperMath();
-obj.x = 12;
-obj.y = 3;
-obj.znak = "/";
-console.log(obj);
+var obj = { x: 12, y: 3, znak: "/" };
 
-SuperMath.prototype.input = function input() {
-  resultX = prompt("pls enter new X");
-  obj.x = resultX;
-  resultY = prompt("pls enter new Y");
-  obj.y = resultY;
-  symbols = ["+", "-", "*", "/", "^", "%"];
-  resultZnak = prompt("pls enter new Znak");
-  if (symbols.indexOf(resultZnak) === -1) {
-    alert("Invalid symbol");
-    obj.input();
-  }
-  obj.znak = resultZnak;
-  console.log(obj);
-};
-obj.check();
+// obj.x = 12;
+// obj.y = 3;
+// obj.znak = "/";
+// console.log(obj);
 
-function doMath() {
+SuperMath.prototype.doMath = function doMath() {
   switch (obj.znak) {
     case "+":
       return parseInt(obj.x) + parseInt(obj.y);
@@ -57,4 +40,21 @@ function doMath() {
     case "^":
       return obj.x ^ obj.y;
   }
-}
+};
+
+SuperMath.prototype.input = function input() {
+  resultX = prompt("pls enter new X");
+  obj.x = resultX;
+  resultY = prompt("pls enter new Y");
+  obj.y = resultY;
+  symbols = ["+", "-", "*", "/", "^", "%"];
+  resultZnak = prompt("pls enter new Znak");
+  if (symbols.indexOf(resultZnak) === -1) {
+    alert("Invalid symbol");
+    obj.input();
+  }
+  obj.znak = resultZnak;
+  return p.check(obj);
+};
+p = new SuperMath();
+p.check(obj);
